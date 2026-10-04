@@ -66,15 +66,21 @@ void addNodeFront(Node *&head, int val)
 void addNodeTail(Node *&tail, int val)
 {
     Node *newVal = new Node;
+    Node *current = tail;
     if (!tail) {
         tail = newVal;
         newVal->next = nullptr;
         newVal->value = val;
     }
     else {
-        newVal->next = tail;
-        newVal->value = val;
-        tail = newVal;
+        while(current->next != nullptr)
+            current = current->next;
+        if (current)
+        {
+            current->next = newVal;
+            current->value = val;
+            current = newVal;
+        }
     }
 }
 
