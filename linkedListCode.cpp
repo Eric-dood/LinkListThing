@@ -25,27 +25,40 @@ int main() {
     srand(time(0));
     Node *head = nullptr;
 
-    // create a linked list of size SIZE with random numbers 0-99
+    //Create a linked list that includes random numbers, with its length being based on SIZE
     for (int i = 0; i < SIZE; i++) {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
         addNodeFront(head, tmp_val); //Adds a node to the front
     }
+    //Also output it
     output(head);
 
     //Start the choice loop
-    int choice = 0, val = 0;;
+    int choice = 1, val;
+    //Use a while(true) loop to 
     while(true)
     {
-        cout << "Select your function: " << endl;
-        cout << "[1] Add node to the head" << endl;
-        cout << "[2] Add node to the tail" << endl;
-        cout << "[3] Delete a node" << endl;
-        cout << "[4] Insert a node" << endl;
-        cout << "[5] Delete the entire list" << endl;
-        cout << "[6] Exit" << endl;
-        cin >> choice;
-        cin.ignore(1000, 10);
+        while(true)
+        {
+            //Ask the user to enter a number
+            //Each number represents a function, with the last one being the exit option
+            if (choice >= 1 && choice <= 6)
+            {
+                cout << "Select your function: " << endl;
+                cout << "[1] Add node to the head" << endl;
+                cout << "[2] Add node to the tail" << endl;
+                cout << "[3] Delete a node" << endl;
+                cout << "[4] Insert a node" << endl;
+                cout << "[5] Delete the entire list" << endl;
+                cout << "[6] Exit" << endl;
+            }
+            else cout << "Invalid choice; please pick a number between 1-6." << endl;
+            cout << "Choice --> ";
+            cin >> choice;
+            cin.ignore(1000, 10);
+            if (choice >= 1 && choice <= 6) break;
+        }
 
         if (choice >= 1 && choice <= 2)
         {
