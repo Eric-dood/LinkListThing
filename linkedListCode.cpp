@@ -12,7 +12,7 @@ struct Node {
 void addNodeFront(Node *&, int);
 void addNodeTail(Node *&, int);
 void deleteNode(Node *&);
-void insertNode(Node *&, int, int);
+void insertNode(Node *&);
 void deleteList(Node *);
 void output(Node *);
 
@@ -36,8 +36,8 @@ int main() {
     output(head);
 
     // insert a node
-    //insertNode(head);
-    //output(head);
+    insertNode(head);
+    output(head);
 
     // deleting the linked list
     //deleteList(head);
@@ -49,7 +49,7 @@ int main() {
         current = head;
     }
     head = nullptr;*/
-    output(head);
+    //output(head);
 
     return 0;
 }
@@ -93,23 +93,66 @@ void deleteNode(Node *&n)
     cin >> entry;
 
     // traverse that many times and delete that node
+    Node *current = n;
     Node *prev = nullptr;  // start prev as nullptr to detect head deletion
 
     for (int i = 0; i < (entry - 1); i++) {
-        prev = n;
-        n = n->next;
+        prev = current;
+        current = current->next;
     }
 
     // at this point, delete current and reroute pointers
-    if (n) {
+    if (current) {
         if (prev == nullptr) {
             // deleting the head node
-            n = n->next;
+            current = current->next;
         } else {
-            prev->next = n->next;
+            prev->next = current->next;
         }
-        delete n;
-        n = nullptr;
+        delete current;
+        current = nullptr;
+    }
+}
+
+void insertNode(Node *&n)
+{
+    int val, entry;
+    cout << "What do you want to insert? " << endl;
+    cin >> val;
+    cin.ignore(1000, 10);
+
+    cout << "After which node to insert " << val << "? " << endl;
+    int count = 1;
+    
+    // traverse that many times and delete that node
+    Node *current = n;
+    Node *prev = nullptr;  // start prev as nullptr to detect head deletion
+
+    while (current) {
+        cout << "[" << count++ << "] " << current->value << endl;
+        current = current->next;
+    }
+    cout << "Choice --> ";
+    cin >> entry;
+
+    current = n;
+    prev = nullptr;  // reset prev to nullptr for same reason
+
+    for (int i = 0; i < entry; i++) {
+        prev = current;
+        current = current->next;
+    }
+
+    // at this point, insert a node between prev and current
+    Node *newnode = new Node;
+    newnode->value = val;
+    newnode->next = current;
+
+    if (prev == nullptr) {
+        // inserting before the head
+        n = newnode;
+    } else {
+        prev->next = newnode;
     }
 }
 
