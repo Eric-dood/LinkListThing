@@ -11,8 +11,8 @@ struct Node {
 
 void addNodeFront(Node *&, int);
 void addNodeTail(Node *&, int);
-void removeNode(Node *);
-void insertNode(Node *);
+void deleteNode(Node *&);
+void insertNode(Node *&, int, int);
 void deleteList(Node *);
 void output(Node *);
 
@@ -32,74 +32,23 @@ int main() {
     output(head);
 
     // deleting a node
-    cout << "Which node to delete? " << endl;
-    output(head);
-    int entry;
-    cout << "Choice --> ";
-    cin >> entry;
-
-    // traverse that many times and delete that node
-    Node *current = head;
-    Node *prev = nullptr;  // start prev as nullptr to detect head deletion
-
-    for (int i = 0; i < (entry - 1); i++) {
-        prev = current;
-        current = current->next;
-    }
-
-    // at this point, delete current and reroute pointers
-    if (current) {
-        if (prev == nullptr) {
-            // deleting the head node
-            head = current->next;
-        } else {
-            prev->next = current->next;
-        }
-        delete current;
-        current = nullptr;
-    }
+    deleteNode(head);
     output(head);
 
     // insert a node
-    cout << "After which node to insert 10000? " << endl;
-    count = 1;
-    current = head;
-    while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
-    cout << "Choice --> ";
-    cin >> entry;
-
-    current = head;
-    prev = nullptr;  // reset prev to nullptr for same reason
-
-    for (int i = 0; i < entry; i++) {
-        prev = current;
-        current = current->next;
-    }
-
-    // at this point, insert a node between prev and current
-    Node *newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-
-    if (prev == nullptr) {
-        // inserting before the head
-        head = newnode;
-    } else {
-        prev->next = newnode;
-    }
-    output(head);
+    //insertNode(head);
+    //output(head);
 
     // deleting the linked list
+    //deleteList(head);
+    /*
     current = head;
     while (current) {
         head = current->next;
         delete current;
         current = head;
     }
-    head = nullptr;
+    head = nullptr;*/
     output(head);
 
     return 0;
@@ -117,6 +66,50 @@ void addNodeFront(Node *&head, int val)
         newVal->next = head;
         newVal->value = val;
         head = newVal;
+    }
+}
+
+void addNodeTail(Node *&tail, int val)
+{
+    Node *newVal = new Node;
+    if (!tail) {
+        tail = newVal;
+        newVal->next = nullptr;
+        newVal->value = val;
+    }
+    else {
+        newVal->next = tail;
+        newVal->value = val;
+        tail = newVal;
+    }
+}
+
+void deleteNode(Node *&n)
+{
+    cout << "Which node to delete? " << endl;
+    output(n);
+    int entry;
+    cout << "Choice --> ";
+    cin >> entry;
+
+    // traverse that many times and delete that node
+    Node *prev = nullptr;  // start prev as nullptr to detect head deletion
+
+    for (int i = 0; i < (entry - 1); i++) {
+        prev = n;
+        n = n->next;
+    }
+
+    // at this point, delete current and reroute pointers
+    if (n) {
+        if (prev == nullptr) {
+            // deleting the head node
+            n = n->next;
+        } else {
+            prev->next = n->next;
+        }
+        delete n;
+        n = nullptr;
     }
 }
 
