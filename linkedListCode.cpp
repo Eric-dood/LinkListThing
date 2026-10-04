@@ -26,8 +26,8 @@ int main() {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
         
-        if (i < round(SIZE / 2) + 1) addNodeFront(head, tmp_val); //Adds a node to the front
-        else addNodeTail(head, tmp_val); //Adds a node to the tail
+        /*if (i < round(SIZE / 2) + 1) addNodeFront(head, tmp_val); //Adds a node to the front
+        else*/ addNodeFront(head, tmp_val); //Adds a node to the tail
     }
     output(head);
 
@@ -65,6 +65,7 @@ void addNodeFront(Node *&head, int val)
 void addNodeTail(Node *&tail, int val)
 {
     Node *newVal = new Node;
+    Node *current = tail;
 
     if (!tail) {
         tail = newVal;
@@ -72,14 +73,13 @@ void addNodeTail(Node *&tail, int val)
         newVal->value = val;
     }
     else {
-        Node *current = tail;
         while(current->next != nullptr)
             current = current->next;
         if (current)
         {
             current->next = newVal;
             current->value = val;
-            current = newVal;
+            tail = current;
         }
     }
 }
@@ -105,7 +105,7 @@ void deleteNode(Node *&n)
     if (current) {
         if (prev == nullptr) {
             // deleting the head node
-            current = current->next;
+            n = current->next;
         } else {
             prev->next = current->next;
         }
