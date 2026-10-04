@@ -33,18 +33,43 @@ int main() {
     }
     output(head);
 
-    // deleting a node
-    deleteNode(head);
-    output(head);
+    //Start the choice loop
+    int choice = 0, val = 0;;
+    while(true)
+    {
+        cout << "Select your function: " << endl;
+        cout << "[1] Add node to the head" << endl;
+        cout << "[2] Add node to the tail" << endl;
+        cout << "[3] Delete a node" << endl;
+        cout << "[4] Insert a node" << endl;
+        cout << "[5] Delete the entire list" << endl;
+        cout << "[6] Exit" << endl;
+        cin >> choice;
+        cin.ignore(1000, 10);
 
-    // insert a node
-    insertNode(head);
-    output(head);
+        if (choice >= 1 && choice <= 2)
+        {
+            cout << "Select what value you want to add: " << endl;
+            cin >> val;
+            cin.ignore(1000, 10);
+        }
+        if (choice == 1) addNodeFront(head, val);
+        if (choice == 2) addNodeTail(head, val);
+        if (choice == 3) deleteNode(head);
+        if (choice == 4) insertNode(head);
+        if (choice == 5)
+        {
+            cout << endl << "Deleting the list..." << endl;
+            deleteList(head);
+        }
+        if (choice == 6)
+        {
+            cout << endl << "Thanks for using this linked list program! Hope you had fun with it!" << endl;
+            break;
+        }
 
-    // deleting the linked list
-    cout << endl << "Deleting the list..." << endl;
-    deleteList(head);
-    output(head);
+        output(head);
+    }
 
     return 0;
 }
@@ -68,13 +93,13 @@ void addNodeFront(Node *&head, int val)
 }
 
 //Define addNodeTail()
-void addNodeTail(Node *&tail, int val)
+void addNodeTail(Node *&head, int val)
 {
     Node *newVal = new Node;
-    Node *current = tail;
+    Node *current = head;
 
-    if (!tail) {
-        tail = newVal;
+    if (!head) {
+        head = newVal;
         newVal->next = nullptr;
         newVal->value = val;
     }
@@ -84,6 +109,7 @@ void addNodeTail(Node *&tail, int val)
         if (current)
         {
             current->next = newVal;
+            newVal->next = nullptr;
             newVal->value = val;
         }
     }
@@ -176,7 +202,7 @@ void deleteList(Node *& n)
 void output(Node *hd)
 {
     if (!hd) {
-        cout << "Empty list.\n";
+        cout << "Empty list.\n" << endl;
         return;
     }
     int count = 1;
