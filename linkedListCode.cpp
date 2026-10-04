@@ -9,9 +9,16 @@ struct Node {
     Node *next;
 };
 
+void addNodeFront(Node *&, int);
+void addNodeTail(Node *&, int);
+void removeNode(Node *);
+void insertNode(Node *);
+void deleteList(Node *);
 void output(Node *);
 
 int main() {
+    //Random number seed generator
+    srand(time(0));
     Node *head = nullptr;
     int count = 0;
 
@@ -19,18 +26,8 @@ int main() {
     for (int i = 0; i < SIZE; i++) {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
-        
         // adds node at head
-        if (!head) {
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
-        }
-        else {
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
-        }
+        addNodeFront(head, tmp_val);
     }
     output(head);
 
@@ -106,6 +103,21 @@ int main() {
     output(head);
 
     return 0;
+}
+
+void addNodeFront(Node *&head, int val)
+{
+    Node *newVal = new Node;
+    if (!head) {
+        head = newVal;
+        newVal->next = nullptr;
+        newVal->value = val;
+    }
+    else {
+        newVal->next = head;
+        newVal->value = val;
+        head = newVal;
+    }
 }
 
 void output(Node *hd) {
