@@ -20,14 +20,13 @@ int main() {
     //Random number seed generator
     srand(time(0));
     Node *head = nullptr;
-    int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = i * 10;
+        int tmp_val = rand() % 100;
         Node *newVal = new Node;
         
-        if (i < (SIZE / 2)) addNodeFront(head, tmp_val); //Adds a node to the front
+        if (i < round(SIZE / 2) + 1) addNodeFront(head, tmp_val); //Adds a node to the front
         else addNodeTail(head, tmp_val); //Adds a node to the tail
     }
     output(head);
@@ -66,13 +65,14 @@ void addNodeFront(Node *&head, int val)
 void addNodeTail(Node *&tail, int val)
 {
     Node *newVal = new Node;
-    Node *current = tail;
+
     if (!tail) {
         tail = newVal;
         newVal->next = nullptr;
         newVal->value = val;
     }
     else {
+        Node *current = tail;
         while(current->next != nullptr)
             current = current->next;
         if (current)
