@@ -2,13 +2,16 @@
 #include <iostream>
 using namespace std;
 
+//Declare the global SIZE constant
 const int SIZE = 7;  
 
+//Initialize the node
 struct Node {
     float value;
     Node *next;
 };
 
+//Function prototypes
 void addNodeFront(Node *&, int);
 void addNodeTail(Node *&, int);
 void deleteNode(Node *&);
@@ -16,6 +19,7 @@ void insertNode(Node *&);
 void deleteList(Node *&);
 void output(Node *);
 
+//Start of main()
 int main() {
     //Random number seed generator
     srand(time(0));
@@ -25,9 +29,7 @@ int main() {
     for (int i = 0; i < SIZE; i++) {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
-        
-        /*if (i < round(SIZE / 2) + 1) addNodeFront(head, tmp_val); //Adds a node to the front
-        else*/ addNodeFront(head, tmp_val); //Adds a node to the tail
+        addNodeFront(head, tmp_val); //Adds a node to the front
     }
     output(head);
 
@@ -46,9 +48,12 @@ int main() {
 
     return 0;
 }
+//End of main()
 
+//Define addNodeFront()
 void addNodeFront(Node *&head, int val)
 {
+    //Create a newVal node
     Node *newVal = new Node;
     if (!head) {
         head = newVal;
@@ -62,6 +67,7 @@ void addNodeFront(Node *&head, int val)
     }
 }
 
+//Define addNodeTail()
 void addNodeTail(Node *&tail, int val)
 {
     Node *newVal = new Node;
@@ -78,12 +84,12 @@ void addNodeTail(Node *&tail, int val)
         if (current)
         {
             current->next = newVal;
-            current->value = val;
-            tail = current;
+            newVal->value = val;
         }
     }
 }
 
+//Define deleteNode()
 void deleteNode(Node *&n)
 {
     cout << "Which node to delete? " << endl;
@@ -114,6 +120,7 @@ void deleteNode(Node *&n)
     }
 }
 
+//Define insertNode()
 void insertNode(Node *&n)
 {
     int val, entry;
@@ -153,6 +160,7 @@ void insertNode(Node *&n)
     }
 }
 
+//Define deleteList()
 void deleteList(Node *& n)
 {
     Node *current = n;
@@ -164,6 +172,7 @@ void deleteList(Node *& n)
     n = nullptr;
 }
 
+//define output()
 void output(Node *hd)
 {
     if (!hd) {
