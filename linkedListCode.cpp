@@ -13,7 +13,7 @@ void addNodeFront(Node *&, int);
 void addNodeTail(Node *&, int);
 void deleteNode(Node *&);
 void insertNode(Node *&);
-void deleteList(Node *);
+void deleteList(Node *&);
 void output(Node *);
 
 int main() {
@@ -24,10 +24,11 @@ int main() {
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = rand() % 100;
+        int tmp_val = i * 10;
         Node *newVal = new Node;
-        // adds node at head
-        addNodeFront(head, tmp_val);
+        
+        if (i < (SIZE / 2)) addNodeFront(head, tmp_val); //Adds a node to the front
+        else addNodeTail(head, tmp_val); //Adds a node to the tail
     }
     output(head);
 
@@ -40,16 +41,9 @@ int main() {
     output(head);
 
     // deleting the linked list
-    //deleteList(head);
-    /*
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;*/
-    //output(head);
+    cout << endl << "Deleting the list..." << endl;
+    deleteList(head);
+    output(head);
 
     return 0;
 }
@@ -121,17 +115,14 @@ void insertNode(Node *&n)
     cin >> val;
     cin.ignore(1000, 10);
 
-    cout << "After which node to insert " << val << "? " << endl;
-    int count = 1;
+    cout << endl << "After which node to insert " << val << "? " << endl;
+    //int count = 1;
     
     // traverse that many times and delete that node
     Node *current = n;
     Node *prev = nullptr;  // start prev as nullptr to detect head deletion
+    output(current);
 
-    while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
     cout << "Choice --> ";
     cin >> entry;
 
@@ -156,7 +147,19 @@ void insertNode(Node *&n)
     }
 }
 
-void output(Node *hd) {
+void deleteList(Node *& n)
+{
+    Node *current = n;
+    while (current) {
+        n = current->next;
+        delete current;
+        current = n;
+    }
+    n = nullptr;
+}
+
+void output(Node *hd)
+{
     if (!hd) {
         cout << "Empty list.\n";
         return;
